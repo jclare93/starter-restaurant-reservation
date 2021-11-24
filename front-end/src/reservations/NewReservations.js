@@ -30,6 +30,7 @@ function NewReservation(){
                 <input type="number" class="form-control" id="partySize" name="people" required/>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="button" className="btn btn-secondary">Cancel</button>
         </form>
     )
 }
