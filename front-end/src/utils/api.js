@@ -67,3 +67,37 @@ export async function listReservations(params, signal) {
     .then(formatReservationDate)
     .then(formatReservationTime);
 }
+
+/**
+ * Retrieves the reservation with the specified `reservationId`
+ * @param reservationId
+ *  the id of the target
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<Error|*>}
+ *  a promise that resolves to the reservation.
+ */
+ export async function readReservation(reservationId, signal) {
+  const url = `${API_BASE_URL}/reservations/${reservationId}`;
+  return await fetchJson(url, { signal }, {});
+}
+
+/**
+ * Saves reservation to the database,,
+ * @param reservation
+ *  the reservation to save, which must not have an `id` property
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<reservation>}
+ *  a promise that resolves the saved reservation, which will now have an `id` property.
+ */
+ export async function createReservation(reservation, signal) {
+  const url = `${API_BASE_URL}/reservations`;
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({data: reservation}),
+    signal,
+  };
+  return await fetchJson(url, options, {});
+}
