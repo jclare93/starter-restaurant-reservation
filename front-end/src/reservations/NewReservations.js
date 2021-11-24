@@ -1,10 +1,17 @@
 import React from "react"
-import {useState, useEffect} from "react-router-dom"
+import {useState, useEffect, useHistory} from "react-router-dom"
+import 
 
-function NewReservation(){
-    //name="people"
+function NewReservations(){
+    const [newReservation, setNewReservations] = useState()
+    const history = useHistory()
+    
+    const handleSubmit = async(event) => {
+        event.preventDefault()
+    }
+
     return (
-        <form>
+        <form onSubmit= {handleSubmit}>
             <div className="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" className="form-control" id="firstName" name="first_name" required/>
