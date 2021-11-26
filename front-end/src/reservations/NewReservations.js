@@ -1,55 +1,65 @@
-import React from "react"
-import {useState, useEffect, useHistory} from "react-router-dom"
+import React, {useState} from "react"
+import {useHistory} from "react-router-dom"
+import {createReservation} from "../utils/api"
 
 
 function NewReservations(){
-    const [reservation, setReservation] = useState({firstName: '', lastName: '', mobileNumber: '', 
-                                                            reservationDate: null, reservationTime: null, partySize: null})
+    const [newReservation, setNewReservation] = useState({firstName: '', lastName: '', mobileNumber: '', 
+                                            reservationDate: null, reservationTime: null, partySize: null})
     const history = useHistory()
     
     const handleSubmit = async(event) => {
         event.preventDefault()
+        const abortController = new AbortController();
+        try {
+            await createReservation(newReservation, abortController.signal);
+          } catch (err) {
+            console.error(err)
+            return;
+          }
+        history.push(`/dashboard?date=${newReservation.reservationDate}`);
     }
     const handleCancel = (event) => {
         event.preventDefault()
         history.goBack()
     }
     const handleFirstChange = (event) => {
-        setReservation({
-            ...reservation,
+        setNewReservation({
+            ...newReservation,
             firstName: event.target.value
         })
     }
 
     const handleLastChange = (event) => {
-        setReservation({
-            ...reservation,
+        setNewReservation({
+            ...newReservation,
             LastName: event.target.value
         })
     }
 
     const handleNumberChange = (event) => {
-        setReservation({
-            ...reservation,
+        setNewReservation({
+            ...newReservation,
             mobileNumber: event.target.value
         })
     }
 
     const handleDateChange = (event) => {
-        setReservation({
-            ...reservation,
+        setNewReservation({
+            ...newReservation,
             reservationDate: event.target.value
         })
     }
 
     const handlePartyChange = (event) => {
-       setReservation({ 
-           ...reservation,
+       setNewReservation({ 
+           ...newReservation,
            partySize: event.target.value
         }) 
 
     }
 
+// add minimum party size
 
     return (
         <form onSubmit= {handleSubmit}>
