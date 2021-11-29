@@ -92,7 +92,7 @@ export async function listReservations(params, signal) {
  *  a promise that resolves the saved reservation, which will now have an `id` property.
  */
  export async function createReservation(reservation, signal) {
-  const url = `${API_BASE_URL}/reservations`;
+  const url = `${API_BASE_URL}/reservations/new`;
   const options = {
     method: "POST",
     headers,
