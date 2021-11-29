@@ -4,57 +4,72 @@ import {createReservation} from "../utils/api"
 
 
 function NewReservations(){
-    const [newReservation, setNewReservation] = useState({firstName: '', lastName: '', mobileNumber: '', 
-                                            reservationDate: null, reservationTime: null, partySize: null})
+    const [newReservation, setNewReservation] = useState({first_name: '', last_name: '', mobile_number: '', 
+                                            reservation_date: null, reservation_time: null, people: null})
+    const [newReservationError, setNewReservationError] = useState(null)
     const history = useHistory()
     
     const handleSubmit = async(event) => {
         event.preventDefault()
         const abortController = new AbortController();
+        setNewReservationError(null)
         try {
             await createReservation(newReservation, abortController.signal);
           } catch (err) {
+            setNewReservationError(err)
             console.error(err)
-            return;
           }
-        history.push(`/dashboard?date=${newReservation.reservationDate}`);
+        history.push(`/dashboard?date=${newReservation.reservation_date}`);
     }
     const handleCancel = (event) => {
         event.preventDefault()
         history.goBack()
     }
     const handleFirstChange = (event) => {
+        event.preventDefault()
         setNewReservation({
             ...newReservation,
-            firstName: event.target.value
+            first_name: event.target.value
         })
     }
 
     const handleLastChange = (event) => {
+        event.preventDefault()
         setNewReservation({
             ...newReservation,
-            LastName: event.target.value
+            last_name: event.target.value
         })
     }
 
     const handleNumberChange = (event) => {
+        event.preventDefault()
         setNewReservation({
             ...newReservation,
-            mobileNumber: event.target.value
+            mobile_number: event.target.value
         })
     }
 
     const handleDateChange = (event) => {
+        event.preventDefault()
         setNewReservation({
             ...newReservation,
-            reservationDate: event.target.value
+            reservation_date: event.target.value
+        })
+    }
+
+    const handleTimeChange = (event) => {
+        event.preventDefault()
+        setNewReservation({
+            ...newReservation,
+            reservation_time: event.target.value
         })
     }
 
     const handlePartyChange = (event) => {
+        event.preventDefault()
        setNewReservation({ 
            ...newReservation,
-           partySize: event.target.value
+           people: event.target.value
         }) 
 
     }
@@ -64,28 +79,28 @@ function NewReservations(){
     return (
         <form onSubmit= {handleSubmit}>
             <div className="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" onChange= {handleFirstChange} className="form-control" id="firstName" name="first_name" required/>
+                <label for="first_name">First Name</label>
+                <input type="text" onChange= {handleFirstChange} className="form-control" id="first_name" name="first_name" required/>
             </div>
             <div className="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" onChange = {handleLastChange} className="form-control" id="lastName" name="last_name" required/>
+                <label for="last_name">Last Name</label>
+                <input type="text" onChange = {handleLastChange} className="form-control" id="last_name" name="last_name" required/>
             </div>
             <div className="form-group">
-                <label for="mobileNumber">Mobile Number</label>
-                <input type="number" onChange = {handleNumberChange} className="form-control" id="mobileNumber" name="mobile_number" required/>
+                <label for="mobile_number">Mobile Number</label>
+                <input type="text" onChange = {handleNumberChange} className="form-control" id="mobile_number" name="mobile_number" required/>
             </div>
             <div className="form-group">
-                <label for="reservationDate">Reservation Date</label>
-                <input type="date" onChange = {handleDateChange} className="form-control" id="reservationDate" name="reservation_date" required/>
+                <label for="reservation_date">Reservation Date</label>
+                <input type="date" onChange = {handleDateChange} className="form-control" id="reservation_date" name="reservation_date" required/>
             </div>
             <div className="form-group">
-                <label for="reservationTime">Reservation Time</label>
-                <input type="time" className="form-control" id="reservationTime" name="reservation_time" required/>
+                <label for="reservation_time">Reservation Time</label>
+                <input type="time" onChange = {handleTimeChange} className="form-control" id="reservation_time" name="reservation_time" required/>
             </div>
             <div className="form-group">
-                <label for="partySize">Party Size</label>
-                <input type="number" onChange = {handlePartyChange} className="form-control" id="partySize" name="people" required/>
+                <label for="people">Party Size</label>
+                <input type="number" onChange = {handlePartyChange} className="form-control" id="people" name="people" required/>
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
             <button type="button" className="btn btn-secondary" onClick = {handleCancel}>Cancel</button>
