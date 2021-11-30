@@ -19,7 +19,4 @@ app.use("/reservations", reservationsRouter);
 app.use(notFound);
 app.use(errorHandler);
 
-module.exports = {
-    app,    
-    router,
-}
+module.exports = app

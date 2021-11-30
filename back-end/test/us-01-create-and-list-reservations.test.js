@@ -197,7 +197,6 @@ describe("US-01 - Create and list reservations", () => {
         .post("/reservations")
         .set("Accept", "application/json")
         .send({ data });
-
       expect(response.body.error).toContain("reservation_date");
       expect(response.status).toBe(400);
     });

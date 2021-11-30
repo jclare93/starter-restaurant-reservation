@@ -3,6 +3,7 @@ import { listReservations } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import { today, previous, next } from "../utils/date-time";
 import {Link} from "react-router-dom"
+import useQuery from "../utils/useQuery";
 
 /**
  * Defines the dashboard page.
@@ -13,20 +14,27 @@ import {Link} from "react-router-dom"
 function Dashboard({ date }) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
+  const dateQuery = useQuery().get("date")
+  console.log("query:", dateQuery)
+  if (dateQuery) date = dateQuery;
   if (!date) date = today()
 
-  useEffect(loadDashboard, [date]);
 
-  function loadDashboard() {
+  useEffect(() => {
     const abortController = new AbortController();
-    setReservationsError(null);
-    listReservations({ date }, abortController.signal)
-      .then(setReservations)
-      .catch(setReservationsError);
-    return () => abortController.abort();
-  }
 
-  
+    async function loadReservations() {
+      setReservationsError(null);
+      try {
+        const data = await listReservations({ date }, abortController.signal);
+        setReservations(data);
+      } catch (error) {
+        setReservationsError(error);
+      }
+    }
+    loadReservations();
+    return () => abortController.abort();
+  }, [date]);
 
   return (
     <main>

@@ -47,5 +47,8 @@
   },
   "keywords": [],
   "author": "Thinkful, Inc.",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "dependencies": {
+    "lodash.isdate": "^4.0.1"
+  }
 }
