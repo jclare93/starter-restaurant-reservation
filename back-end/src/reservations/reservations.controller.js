@@ -2,6 +2,7 @@ const service = require("./reservations.service")
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary")
 const { reset } = require("nodemon")
 const validateInputs = require("../errors/validateInputs")
+const validateDateTime =require("../errors/validateDateTime")
 
 /**
  * List handler for reservation resources
@@ -103,5 +104,5 @@ async function create(req, res, next){
 module.exports = {
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   list: [asyncErrorBoundary(list)],
-  create: [validateInputs, asyncErrorBoundary(create)]
+  create: [validateDateTime, validateInputs, asyncErrorBoundary(create)]
 }
