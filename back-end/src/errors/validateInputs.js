@@ -2,8 +2,6 @@ function validateInputs(req, res, next){
     const {data} = req.body
     const reservation = data
 
-    console.log("keys:", reservation)
-
     if(!reservation){
         return next({
             status: 400,
