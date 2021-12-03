@@ -7,17 +7,18 @@ function validateDateTime(req, res, next){
     console.log("reservationDay:", reservationDay)
     const now = new Date()
     if(reservationDay == 1){
-        next({
+        return next({
             status: 400,
             message: "sorry. closed on tuesdays."
         })
     }
     if(formatDate<now){
-        next({
+        return next({
             status: 400, 
             message: "sorry. reservations must be in the future."
         })
     }
     next()
 }
+
 module.exports= validateDateTime
