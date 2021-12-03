@@ -4,6 +4,7 @@ import ErrorAlert from "../layout/ErrorAlert";
 import { today, previous, next } from "../utils/date-time";
 import {Link} from "react-router-dom"
 import useQuery from "../utils/useQuery";
+import ReservationFormat from "../reservations/ReservationsFormat";
 
 /**
  * Defines the dashboard page.
@@ -36,6 +37,10 @@ function Dashboard({ date }) {
     return () => abortController.abort();
   }, [date]);
 
+  const reservationList = reservations.map((reservation, index) => {
+      return <li key = {index}> <ReservationFormat reservation = {reservation} date = {date}/> </li>
+  }) 
+//{JSON.stringify(reservations)}
   return (
     <main>
       <h1>Dashboard</h1>
@@ -43,16 +48,18 @@ function Dashboard({ date }) {
         <h4 className="mb-0">Reservations for date:</h4>
       </div>
       <ErrorAlert error={reservationsError} />
+      
       <Link to={`/dashboard?date=${previous(date)}`}> 
-        <button onClick = {() => {date = previous(date)}}className="btn btn-secondary" type="button">Previous</button>
+        <button className="btn btn-secondary" type="button">Previous</button>
       </Link>
       <Link to={`/dashboard?date=${today()}`}> 
-        <button onClick= {() => {date = today()}} className="btn btn-primary" type="button">Today</button>
+        <button className="btn btn-primary" type="button">Today</button>
       </Link>
       <Link to={`/dashboard?date=${next(date)}`}> 
-        <button onClick = {() => {date = next(date)}}className="btn btn-secondary" type="button">Next</button>
+        <button className="btn btn-secondary" type="button">Next</button>
       </Link>
-      {JSON.stringify(reservations)}
+      {reservationList && <ul>{reservationList}</ul>}
+      
     </main>
   );
 }

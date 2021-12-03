@@ -30,7 +30,7 @@ describe("US-03 - Create reservation on a future, working date - E2E", () => {
   afterEach(async () => {
     await browser.close();
   });
-
+  
   describe("/reservations/new page", () => {
     beforeEach(async () => {
       await page.type("input[name=first_name]", "John");
