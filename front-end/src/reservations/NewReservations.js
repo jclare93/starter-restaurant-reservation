@@ -4,13 +4,14 @@ import {createReservation} from "../utils/api"
 import ErrorAlert from "../layout/ErrorAlert";
 
 
+
 function NewReservations(){
     const [newReservation, setNewReservation] = useState({first_name: '', last_name: '', mobile_number: '', 
-                                            reservation_date: null, reservation_time: null, people: null})
+                                            reservation_date: '', reservation_time: '', people: ''})
     const [newReservationError, setNewReservationError] = useState(null)
     const history = useHistory()
     
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
         const abortController = new AbortController();
         setNewReservationError(null)
@@ -79,37 +80,37 @@ function NewReservations(){
 // add minimum party size
 
     return (
-        <main>
+        <>
             <ErrorAlert className ="alert alert-danger" error={newReservationError} />
             <form onSubmit= {handleSubmit}>
                 <div className="form-group">
-                    <label for="first_name">First Name</label>
-                    <input type="text" onChange= {handleFirstChange} className="form-control" id="first_name" name="first_name" required/>
+                    <label htmlFor="first_name">First Name</label>
+                    <input type="text" onChange= {handleFirstChange} className="form-control" id="first_name" name="first_name" value= {newReservation?.first_name} required/>
                 </div>
                 <div className="form-group">
-                    <label for="last_name">Last Name</label>
-                    <input type="text" onChange = {handleLastChange} className="form-control" id="last_name" name="last_name" required/>
+                    <label htmlFor="last_name">Last Name</label>
+                    <input type="text" onChange = {handleLastChange} className="form-control" id="last_name" name="last_name" value= {newReservation?.last_name} required/>
                 </div>
                 <div className="form-group">
-                    <label for="mobile_number">Mobile Number</label>
-                    <input type="text" onChange = {handleNumberChange} className="form-control" id="mobile_number" name="mobile_number" required/>
+                    <label htmlFor="mobile_number">Mobile Number</label>
+                    <input type="text" onChange = {handleNumberChange} className="form-control" id="mobile_number" name="mobile_number" value= {newReservation?.mobile_number} required/>
                 </div>
                 <div className="form-group">
-                    <label for="reservation_date">Reservation Date</label>
-                    <input type="date" onChange = {handleDateChange} className="form-control" id="reservation_date" name="reservation_date" required/>
+                    <label htmlFor="reservation_date">Reservation Date</label>
+                    <input type="date" onChange = {handleDateChange} className="form-control" id="reservation_date" name="reservation_date" value= {newReservation?.reservation_date} required/>
                 </div>
                 <div className="form-group">
-                    <label for="reservation_time">Reservation Time</label>
-                    <input type="time" onChange = {handleTimeChange} className="form-control" id="reservation_time" name="reservation_time" required/>
+                    <label htmlFor="reservation_time">Reservation Time</label>
+                    <input type="time" onChange = {handleTimeChange} className="form-control" id="reservation_time" name="reservation_time" value= {newReservation?.reservation_time} required/>
                 </div>
                 <div className="form-group">
-                    <label for="people">Party Size</label>
-                    <input type="number" onChange = {handlePartyChange} className="form-control" id="people" name="people" required/>
+                    <label htmlFor="people">Party Size</label>
+                    <input type="number" onChange = {handlePartyChange} className="form-control" id="people" name="people" value= {newReservation?.people} required/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <button type="button" className="btn btn-secondary" onClick = {handleCancel}>Cancel</button>
             </form>
-        </main>
+        </>
     )
 }
 
