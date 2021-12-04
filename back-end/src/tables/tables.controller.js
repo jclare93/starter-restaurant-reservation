@@ -47,6 +47,7 @@ function read(req, res, next) {
 
 async function reservationIdExists(req, res, next) {
     let reservation_id = null
+    console.log("req.body.data:", req.body.data)
     if (req.body.data) {
       reservation_id = req.body.data.reservation_id
     } 
@@ -63,7 +64,15 @@ async function reservationIdExists(req, res, next) {
       message: `${reservation_id} is not a valid reservation id.`,
     });
   }
-//use res.locals to compare capacity vs party size
+
+async function finishReservation(req, res, next){
+    const table = res.locals.table
+    if(!table.reservation_id) return next({status: 400, message: `this table is not occupied`})
+    const updatedTables = await service.finishReservation(table)
+    res.status(200).json({updatedTables});
+}
+
+
 function checkCapacity(req, res, next){
     
     if(res.locals.reservation.people > res.locals.table.capacity){
@@ -88,5 +97,6 @@ module.exports = {
         checkCapacity, asyncErrorBoundary(update)],
     list: [asyncErrorBoundary(list)],
     read: [asyncErrorBoundary(tableExists), read],
-    create: [validateTablesInputs, asyncErrorBoundary(create)]
+    create: [validateTablesInputs, asyncErrorBoundary(create)],
+    finishReservation:[asyncErrorBoundary(tableExists), asyncErrorBoundary(finishReservation)]
 }
