@@ -1,23 +1,59 @@
 import React, {useState, useEffect} from "react"
-import {useHistory} from "react-router-dom"
+import {useHistory, useParams} from "react-router-dom"
+import ErrorAlert from "../layout/ErrorAlert"
+import { listTables, updateTable } from "../utils/api"
+
 
 function ReservationSeat(){
-const [newSeat, setNewSeat] = useState({})
+
+//const [newSeat, setNewSeat] = useState({})
 const [newSeatError, setNewSeatError] = useState(null)
-const [selectedTable, setNewSelectedTable] = useState(null)
+const [selectedTable, setSelectedTable] = useState('')
 const history = useHistory()
-//make api for list tables
+const [tablesError, setTablesError] = useState(null)
+const [tables, setTables] = useState([])
+
+const {reservation_id} = useParams()
+console.log("reservationId", reservation_id)
+
+
+//get query of reservationId
+//make api for update
 //handlesubmit
+useEffect(() => {
+    const abortController = new AbortController();
+
+    async function loadTables() {
+      setTablesError(null);
+      try {
+        const data = await listTables(abortController.signal);
+        setTables(data);
+      } catch (error) {
+        setTablesError(error);
+      }
+    }
+    loadTables();
+    return () => abortController.abort();
+  }, []);
+
     const handleSubmit = async(event) => {
         event.preventDefault()
         const abortController = new AbortController();
         setNewSeatError(null)
-        setNewSeat({ta})
+        try{
+            await updateTable(selectedTable, {"reservation_id": reservation_id}, abortController.signal)
+            
+        }catch(err){
+            setNewSeatError(err)
+            return;
+        }
+        history.push(`/dashboard`);
     }
 
     const handleChange = (event) => {
         event.preventDefault()
-        setNewSelectedTable(event.target.value)
+        console.log("selectedTable:", event.target.value)
+        setSelectedTable(event.target.value)
     }
 
     const handleCancel = (event) => {
@@ -28,6 +64,8 @@ const history = useHistory()
 
     return(
         <>
+        <ErrorAlert error={newSeatError} />
+        <ErrorAlert error={tablesError}/>
     {tables && <form onSubmit= {handleSubmit}>
         <div class="form-group">
             <label htmlFor="table_id">Table Number:</label>
