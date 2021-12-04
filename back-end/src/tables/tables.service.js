@@ -29,6 +29,14 @@ function list(){
     .orderBy("table_name")
 }
 
+function finishReservation(table){
+    return knex("tables")
+    .select("*")
+    .where({table_id: table.table_id})
+    .update({reservation_id: null})
+    .then(updatedRecords => updatedRecords[0])
+}
+
 /*function reservationTableData(reservationId){
     return knex("tables")
     .select("*")
@@ -42,4 +50,5 @@ module.exports = {
     list,
     read,
     create,
+    finishReservation,
 }
