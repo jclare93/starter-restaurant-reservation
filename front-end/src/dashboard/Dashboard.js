@@ -5,6 +5,7 @@ import { today, previous, next } from "../utils/date-time";
 import {Link} from "react-router-dom"
 import useQuery from "../utils/useQuery";
 import ReservationFormat from "../reservations/ReservationsFormat";
+import TablesFormat from "../reservations/TablesFormat";
 
 /**
  * Defines the dashboard page.
@@ -38,14 +39,14 @@ function Dashboard({ date }) {
   }, [date]);
 
   const reservationList = reservations.map((reservation, index) => {
-      return <li key = {index}> <ReservationFormat reservation = {reservation} date = {date}/> </li>
+      return <ReservationFormat reservation = {reservation} date = {date} key = {index}/> 
   }) 
 //{JSON.stringify(reservations)}
   return (
     <main>
       <h1>Dashboard</h1>
       <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date:</h4>
+        <h4 className="mb-0">Reservations for date: {date}</h4>
       </div>
       <ErrorAlert error={reservationsError} />
       
@@ -58,8 +59,8 @@ function Dashboard({ date }) {
       <Link to={`/dashboard?date=${next(date)}`}> 
         <button className="btn btn-secondary" type="button">Next</button>
       </Link>
-      {reservationList && <ul>{reservationList}</ul>}
-      
+      {reservationList}
+      <TablesFormat />
     </main>
   );
 }
