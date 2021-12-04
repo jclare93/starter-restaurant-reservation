@@ -1,27 +1,14 @@
 const service = require("./reservations.service")
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary")
-const { reset } = require("nodemon")
 const validateInputs = require("../errors/validateInputs")
 const validateDateTime =require("../errors/validateDateTime")
 const validateTime = require("../errors/validateTime")
+const reservationExists = require("../errors/reservationExists")
 
 /**
  * List handler for reservation resources
  */
-async function reservationExists(req, res, next) {
-  const {reservation_id} = req.params
-  try{
-    const reservation = await service.read(reservation_id)
-    if (reservation){
-      res.locals.reservation = reservation
-      next()
-    } else{
-      next({status: 404, message: `reservation id: ${reservation_id} does not exist`})
-    }
-  }catch(err){
-    console.error(err)
-  }
-}
+
 
 /*function validateInputs(req, res, next){
   const {data} = req.body
@@ -76,7 +63,7 @@ async function reservationExists(req, res, next) {
 function read(req, res){
   const reservation = res.locals.reservation
   console.log("reservation:", reservation)
-  res.json(reservation)
+  res.json({data: reservation})
 }
 
 async function list(req, res) {
@@ -104,5 +91,5 @@ async function create(req, res, next){
 module.exports = {
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   list: [asyncErrorBoundary(list)],
-  create: [validateTime, validateDateTime, validateInputs, asyncErrorBoundary(create)]
+  create: [validateTime, validateDateTime, validateInputs, asyncErrorBoundary(create)],
 }
