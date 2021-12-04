@@ -1,30 +1,11 @@
-import React, {useState, useEffect} from "react";
-import ErrorAlert from "../layout/ErrorAlert";
+import React from "react";
 
-function ReservationFormat({reservation = [], date}){
-    const [tablesError, setTablesError] = useState(null)
-    const [tables, setTables] = useState([])
-    useEffect(() => {
-        const abortController = new AbortController();
+
+function ReservationFormat({reservation = []}){
     
-        async function loadTables() {
-          setTablesError(null);
-          try {
-            const data = await listTables({ date }, abortController.signal);
-            setTables(data);
-          } catch (error) {
-            setTablesError(error);
-          }
-        }
-        loadTables();
-        return () => abortController.abort();
-      }, []);
-
-
     return (
     <>
-        <ErrorAlert error={tablesError} />
-        <div className= "row">
+        <div className= "container-fluid">
             <div className= "row">
                 <h3>Reservation Name: </h3>
                 <h3> {reservation.first_name} {reservation.last_name}</h3>
@@ -41,22 +22,14 @@ function ReservationFormat({reservation = [], date}){
                 <h6>Party Size: </h6>
                 <h6> {reservation.people}</h6>
             </div>
+            <div className= "row">
+                <p data-reservation-id-status={reservation.reservation_id}>{reservation.status}</p>
+            </div>
             <a class="btn btn-primary" href={`/reservations/${reservation.reservation_id}/seat`} role="button">Seat</a>
-        </div>
-        <div className="row">
-            <h3>Seats</h3>
-            {tables && tables.map((table, index) => {
-                return (
-                    <>
-                        <div className = "row" key = {index}>
-                            <h5>Table Name: {table.table_name}</h5>
-                        </div>
-                        <div className="row">
-                            <h6 data-table-id-status= {table.table_id}>Status: </h6>
-                        </div>
-                    </>
-                )
-            })}
+            {reservation.status ===  "booked" && 
+            <button type = "button">Seat</button>
+
+            }
         </div>
     </>
     )
