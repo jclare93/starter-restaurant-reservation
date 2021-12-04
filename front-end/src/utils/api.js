@@ -103,18 +103,73 @@ export async function listReservations(params, signal) {
 }
 
 /**
- * Saves reservation to the database,,
- * @param reservation
- *  the reservation to save, which must not have an `id` property
+ * Saves table to the database,,
+ * @param table
+ *  the table to save, which must not have an `id` property
  * @param signal
  *  optional AbortController.signal
- * @returns {Promise<reservation>}
- *  a promise that resolves the saved reservation, which will now have an `id` property.
+ * @returns {Promise<table>}
+ *  a promise that resolves the saved table, which will now have an `id` property.
  */
  export async function createTable(table, signal) {
   const url = `${API_BASE_URL}/tables`;
   const options = {
     method: "POST",
+    headers,
+    body: JSON.stringify({data: table}),
+    signal,
+  };
+  return await fetchJson(url, options, {});
+}
+
+/**
+ * Retrieves all existing tables.
+ * @returns {Promise<[tablen]>}
+ *  a promise that resolves to a possibly empty array of tables saved in the database.
+ */
+
+ export async function listTables(signal) {
+  const url = new URL(`${API_BASE_URL}/tables`);
+  return await fetchJson(url, { headers, signal }, [])
+}
+
+/**
+ * Saves table to the database,,
+ * @param table_id
+ *  the table id to save
+ * @param reservation_id
+ * the reservation id for the table
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<table>}
+ *  a promise that resolves the saved table, which will now have an `id` property.
+ */
+ export async function updateTable(table_id, reservation_id, signal) {
+   console.log("reservation_id", reservation_id)
+   console.log("table_id", table_id)
+  const url = `${API_BASE_URL}/tables/${table_id}/seat`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({data: reservation_id}),
+    signal,
+  };
+  return await fetchJson(url, options, {});
+}
+
+/**
+ * Saves table to the database,,
+ * @param table
+ *  the table reservation to delete, which must have an `reservation_id` property
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<table>}
+ *  a promise that resolves the saved table, which will now have an `id` property.
+ */
+ export async function finishTable(table, signal) {
+  const url = `${API_BASE_URL}/tables/${table.reservation_id}/seat`;
+  const options = {
+    method: "DELETE",
     headers,
     body: JSON.stringify({data: table}),
     signal,
