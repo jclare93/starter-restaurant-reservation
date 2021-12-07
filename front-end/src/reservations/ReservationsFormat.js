@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
+import { updateReservationStatus } from "../utils/api";
 
 
 function ReservationFormat({reservation = []}){
+    const [reservationStatus, setReservationStatus] = useState('')
+    const [reservationStatusError, setReservationStatusError] = useState(null)
+
+    const seatClickHandler = (event) => {
+        event.preventDefault()
+        const abortController = new AbortController();
+        setReservationStatusError(null)
+        setReservationStatus({status: 'seated'})
+        try{
+            updateReservationStatus(reservationStatus)
+        }catch(err){
+        setReservationStatusError(err)
+        }
+    }
     
     return (
     <>
@@ -27,8 +42,7 @@ function ReservationFormat({reservation = []}){
             </div>
             <a class="btn btn-primary" href={`/reservations/${reservation.reservation_id}/seat`} role="button">Seat</a>
             {reservation.status ===  "booked" && 
-            <button type = "button">Seat</button>
-
+            <button className="btn btn-primary" onClick = {seatClickHandler} type = "button">Seat</button>
             }
         </div>
     </>
