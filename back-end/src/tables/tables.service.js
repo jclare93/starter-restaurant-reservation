@@ -29,21 +29,20 @@ function list(){
     .orderBy("table_name")
 }
 
-function finishReservation(table){
-    return knex("tables")
-    .select("*")
-    .where({table_id: table.table_id})
-    .update({reservation_id: null})
-    .then(updatedRecords => updatedRecords[0])
+function finishReservation(reservationId){
+    return knex("reservations")
+    .where({"reservation_id": reservationId})
+    .update({"status": "finished"})
+    .then((updatedRecords) => updatedRecords[0])
+
 }
 
-/*function reservationTableData(reservationId){
+function finishTable(tableId){
     return knex("tables")
-    .select("*")
-    .fullOuterJoin("reservations", "tables.reservation_id", "reservations.reservation_id")
-    .where({'tables.reservation_id': reservationId})
-    .first()
-}*/
+    .returning("*")
+    .where({"table_id": tableId})
+    .update({"reservation_id": null})
+}
 
 module.exports = {
     update,
@@ -51,4 +50,5 @@ module.exports = {
     read,
     create,
     finishReservation,
+    finishTable,
 }

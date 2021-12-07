@@ -75,7 +75,7 @@ useEffect(() => {
                     {table.table_name} - {table.capacity}</option>
                 })}
             </select>
-            <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+            <button class="btn btn-primary" type="submit" value="Submit" >Submit</button>
             <button type="button" onClick={handleCancel} className="btn btn-dark"> Cancel </button>
         </div>
     </form>}
