@@ -6,23 +6,17 @@ const validateTime = require("../errors/validateTime")
 const reservationExists = require("../errors/reservationExists")
 const validateStatus = require("../errors/validateStatus")
 
-function read(req, res){
+async function read(req, res){
   const reservation = res.locals.reservation
-  console.log("reservation:", reservation)
   res.json({data: reservation})
 }
 
 async function list(req, res) {
   const {date} = req.query
-  if (date){
-    try {
-      const data = await service.listByDate(date)
-      res.json({ data })
-    } catch (err){
-      console.error(err)
-    }
+  if(date){
+    const results = await service.listActiveByDate(date)
+    res.json({data: results})
   } 
-  return;
 }
 
 async function create(req, res, next){

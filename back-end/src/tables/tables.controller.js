@@ -1,8 +1,8 @@
 const service = require("./tables.service")
-const reservationService = require("../reservations/reservations.service")
 const asyncErrorBoundary = require("../errors/asyncErrorBoundary")
 const validateTablesInputs = require("../errors/validateTablesInputs")
 const validateTablesUpdate = require("../errors/validateTablesUpdate")
+const reservationService = require("../reservations/reservations.service")
 
 async function update(req, res, next){
     const newTable = {
@@ -11,7 +11,9 @@ async function update(req, res, next){
       };
     
     const results = await service.update(newTable)
-    res.json({data: results})
+    console.log("data:", results)
+    next()
+    //res.json({data: results})
 }
 
 async function list(req, res, next){
@@ -57,12 +59,12 @@ async function reservationIdExists(req, res, next) {
     if (reservation) {
       res.locals.reservation = reservation;
       return next();
-    }
-  
-    return next({
+    } else {
+        return next({
       status: 404,
       message: `${reservation_id} is not a valid reservation id.`,
-    });
+    })
+    }
   }
 
 async function finishReservation(req, res, next){
@@ -89,7 +91,7 @@ function checkCapacity(req, res, next){
     }
     return next()
 }
-
+//it might be res.locals.reservation.reservation_id
 function checkIfOccupied(req, res, next){
     if (res.locals.table.reservation_id){
         return next({status: 400, message:"This table is occupied"})
@@ -97,11 +99,32 @@ function checkIfOccupied(req, res, next){
     return next()
 }
 
+async function updateReservationStatus(req, res, next){
+    const {reservation_id} = res.locals.reservation
+    const results = await service.seatReservation(reservation_id)
+    console.log("data:", results)
+    res.json({data: results})
+}
+
+function checkIfSeated(req, res, next) {
+    const { status } = res.locals.reservation;
+  
+    if (status === "seated") {
+      return next({
+        status: 400,
+        message: `Reservation status cannot be seated if already seated`,
+      });
+    }
+  
+    next();
+  }
+
 //moved checkIfOccupied ahead of reservation id exists
+//move update reservation status vefore update maybe
 
 module.exports = {
-    update: [ asyncErrorBoundary(tableExists), validateTablesUpdate,checkIfOccupied, asyncErrorBoundary(reservationIdExists), 
-        checkCapacity, asyncErrorBoundary(update)],
+    update: [ asyncErrorBoundary(tableExists), validateTablesUpdate, checkIfOccupied, asyncErrorBoundary(reservationIdExists), 
+        checkCapacity, checkIfSeated, asyncErrorBoundary(update), asyncErrorBoundary(updateReservationStatus)],
     list: [asyncErrorBoundary(list)],
     read: [asyncErrorBoundary(tableExists), read],
     create: [validateTablesInputs, asyncErrorBoundary(create)],
