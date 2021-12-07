@@ -2,9 +2,9 @@ function validateDateTime(req, res, next){
     const {data} = req.body
     const reservation = data
     const formatDate = new Date(reservation.reservation_date)
-    console.log("formatDate:", formatDate)
+    
     const reservationDay = formatDate.getDay()
-    console.log("reservationDay:", reservationDay)
+    
     const now = new Date()
     if(reservationDay == 1){
         return next({
