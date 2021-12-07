@@ -66,10 +66,17 @@ async function reservationIdExists(req, res, next) {
   }
 
 async function finishReservation(req, res, next){
-    const table = res.locals.table
-    if(!table.reservation_id) return next({status: 400, message: `this table is not occupied`})
-    const updatedTables = await service.finishReservation(table)
-    res.status(200).json({updatedTables});
+    const {reservation_id} = res.locals.table
+    if(!reservation_id) reservation_id = req.params.reservation_id ;
+    if(!reservation_id) return next({status: 400, message: `this table is not occupied`})
+    const updatedReservations = await service.finishReservation(reservation_id)
+    console.log("updatedResevations:", updatedReservations)
+    next()
+}
+
+async function finishTable(req, res, next){
+    const updatedTables = await service.finishTable(res.locals.table.table_id)
+    res.status(200).json({data: updatedTables})
 }
 
 
@@ -98,5 +105,5 @@ module.exports = {
     list: [asyncErrorBoundary(list)],
     read: [asyncErrorBoundary(tableExists), read],
     create: [validateTablesInputs, asyncErrorBoundary(create)],
-    finishReservation:[asyncErrorBoundary(tableExists), asyncErrorBoundary(finishReservation)]
+    finishReservation:[asyncErrorBoundary(tableExists), asyncErrorBoundary(finishReservation), asyncErrorBoundary(finishTable)]
 }
