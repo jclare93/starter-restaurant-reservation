@@ -4,7 +4,7 @@ const tablesService = require("../tables/tables.service")
 function validateTablesUpdate(req, res, next){
     const {data} = req.body
     const table = data
-    console.log("tablecheck:", table)
+    
     if(!table){
         return next({
             status: 400,
