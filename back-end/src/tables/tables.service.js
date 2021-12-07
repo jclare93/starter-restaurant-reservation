@@ -37,6 +37,13 @@ function finishReservation(reservationId){
 
 }
 
+function seatReservation(reservationId){
+    return knex("reservations")
+    .where({"reservation_id": reservationId})
+    .update({"status": "seated"})
+    .then((updatedRecords) => updatedRecords[0])
+}
+
 function finishTable(tableId){
     return knex("tables")
     .returning("*")
@@ -51,4 +58,5 @@ module.exports = {
     create,
     finishReservation,
     finishTable,
+    seatReservation
 }
