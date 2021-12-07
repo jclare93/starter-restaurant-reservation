@@ -176,3 +176,25 @@ export async function listReservations(params, signal) {
   };
   return await fetchJson(url, options, {});
 }
+
+/**
+ * Saves table to the database,,
+ * @param table_id
+ *  the table id to save
+ * @param reservation_id
+ * the reservation id for the table
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<table>}
+ *  a promise that resolves the saved table, which will now have an `id` property.
+ */
+ export async function updateReservationStatus(reservationStatus, signal) {
+ const url = `${API_BASE_URL}/reservations/:reservation_id/status`;
+ const options = {
+   method: "PUT",
+   headers,
+   body: JSON.stringify({data: reservationStatus}),
+   signal,
+ };
+ return await fetchJson(url, options, {});
+}
