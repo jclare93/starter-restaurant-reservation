@@ -8,7 +8,7 @@ function  validateStatus (req, res, next){
         })
     }
     if(status !== "booked" && status !== "seated"){
-        if(status !== "finished"){
+        if(status !== "finished" && status !== "cancelled"){
             return next({
                 status: 400,
                 message: `sorry, ${status} is an unknown status`
