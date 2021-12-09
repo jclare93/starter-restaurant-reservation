@@ -1,4 +1,5 @@
 function validateInputs(req, res, next){
+    
     const {data} = req.body
     const reservation = data
 
@@ -52,7 +53,7 @@ function validateInputs(req, res, next){
     }
 
     if(!reservation.reservation_date ||reservation.reservation_date.length < 1){
-        next({
+        return next({
             status: 400,
             message: "please enter a valid reservation_date"
         })
