@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {useHistory} from "react-router-dom"
 import {createReservation} from "../utils/api"
 import ErrorAlert from "../layout/ErrorAlert";
+import ReservationForm from "./ReservationForm";
 
 
 
@@ -23,7 +24,8 @@ function NewReservations(){
             return;
           }
         history.push(`/dashboard?date=${newReservation.reservation_date}`);
-    }
+        
+    }/*
     const handleCancel = (event) => {
         event.preventDefault()
         history.goBack()
@@ -77,7 +79,7 @@ function NewReservations(){
 
     }
 
-// add minimum party size
+
 
     return (
         <>
@@ -105,11 +107,18 @@ function NewReservations(){
                 </div>
                 <div className="form-group">
                     <label htmlFor="people">Party Size</label>
-                    <input type="number" onChange = {handlePartyChange} className="form-control" id="people" name="people" value= {newReservation?.people} required/>
+                    <input type="number" minimum = {1} onChange = {handlePartyChange} className="form-control" id="people" name="people" value= {newReservation?.people} required/>
                 </div>
                 <button type="submit" className="btn btn-primary">Submit</button>
                 <button type="button" className="btn btn-secondary" onClick = {handleCancel}>Cancel</button>
             </form>
+        </>
+    )*/
+
+    return (
+        <>
+            <ErrorAlert error = {newReservationError} />
+            <ReservationForm reservation = {newReservation} setReservation = {setNewReservation} handleSubmit = {handleSubmit}/>
         </>
     )
 }
