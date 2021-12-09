@@ -2,11 +2,14 @@ import React, {useState, useEffect} from "react"
 import { listTables } from "../utils/api";
 import ErrorAlert from "../layout/ErrorAlert";
 import { finishTable } from "../utils/api";
-
+import {useHistory} from "react-router-dom"
+ 
 function TablesFormat(){   
     const [tablesError, setTablesError] = useState(null)
     const [deleteSeatError, setDeleteSeatError] = useState(null)
     const [tables, setTables] = useState([])
+    const history = useHistory()
+
     useEffect(() => {
         const abortController = new AbortController();
     
@@ -27,6 +30,7 @@ function TablesFormat(){
         event.preventDefault()
         const abortController = new AbortController();
         const table = event.target.value
+        console.log("table:", table)
         setDeleteSeatError(null)
         try{
             await finishTable(table, abortController.signal)

@@ -167,7 +167,7 @@ export async function listReservations(params, signal) {
  *  a promise that resolves the saved table, which will now have an `id` property.
  */
  export async function finishTable(table, signal) {
-  const url = `${API_BASE_URL}/tables/${table.reservation_id}/seat`;
+  const url = `${API_BASE_URL}/tables/${table}/seat`;
   const options = {
     method: "DELETE",
     headers,
@@ -197,4 +197,24 @@ export async function listReservations(params, signal) {
    signal,
  };
  return await fetchJson(url, options, {});
+}
+
+/**
+ * Saves reservation to the database,,
+ * @param reservation
+ *  the reservation to save, which must  have an `id` property
+ * @param signal
+ *  optional AbortController.signal
+ * @returns {Promise<reservation>}
+ *  a promise that resolves the saved reservation, which will now have an `id` property.
+ */
+ export async function updateReservation(reservation, signal) {
+  const url = `${API_BASE_URL}/reservations/:reservation_id`;
+  const options = {
+    method: "PUT",
+    headers,
+    body: JSON.stringify({data: reservation}),
+    signal,
+  };
+  return await fetchJson(url, options, {});
 }
