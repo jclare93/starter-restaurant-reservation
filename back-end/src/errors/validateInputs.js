@@ -16,7 +16,7 @@ function validateInputs(req, res, next){
         })
     }
 
-    if(isNaN(reservation.people) || reservation.people < 1 || !reservation.people){
+    if(!Number.isInteger(reservation.people) || reservation.people < 1 || !reservation.people){
         return next({
             status: 400,
             message: 'please enter a valid number for people'
@@ -25,7 +25,7 @@ function validateInputs(req, res, next){
 
     var isValidTime = /^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$/.test(reservation.reservation_time);
 
-    if(!reservation.reservation_time|| !isValidTime || reservation.reservation_time.length < 1){
+    if(!reservation.reservation_time||!isValidTime || reservation.reservation_time.length < 1){
         return next({
             status: 400,
             message: "please enter a valid reservation_time"
