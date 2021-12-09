@@ -13,6 +13,15 @@ function listByDate(date) {
         .orderBy('reservation_time')
 }
 
+function listActiveByMobile(mobile_number){
+    return knex("reservations")
+    .whereRaw(
+      "translate(mobile_number, '() -', '') like ?",
+      `%${mobile_number.replace(/\D/g, "")}%`
+    )
+    .orderBy("reservation_date");
+}
+
 function listActiveByDate(date){
     return knex('reservations')
         .select("*")
@@ -44,6 +53,13 @@ function updateReservationStatus(reservationStatus, reservationId){
     .then(updatedRecords => updatedRecords[0])
 }
 
+function update(reservation){
+    return knex('reservations')
+    .returning("*")
+    .where({reservation_id: reservation.reservation_id})
+    .update(reservation)
+    .then(updatedRecords => updatedRecords[0])
+}
 
 
 module.exports = {
@@ -53,4 +69,6 @@ module.exports = {
     read,
     updateReservationStatus,
     listActiveByDate,
+    listActiveByMobile,
+    update
 }
