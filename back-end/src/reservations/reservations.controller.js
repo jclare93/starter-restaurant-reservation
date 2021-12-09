@@ -12,11 +12,16 @@ async function read(req, res){
 }
 
 async function list(req, res) {
-  const {date} = req.query
+  const date = req.query.date
   if(date){
     const results = await service.listActiveByDate(date)
     res.json({data: results})
   } 
+  const mobile_number = req.query.mobile_number
+  if(mobile_number){
+    const results= await service.listActiveByMobile(mobile_number)
+    res.json({data: results})
+  }
 }
 
 async function create(req, res, next){
@@ -37,11 +42,20 @@ async function updateStatus(req, res, next){
   res.json({data: results})
 }
 
+async function update(req, res, next){
+  const {data} = req.body
+  console.log("update data:", data)
+  const results = await service.update(data)
+  console.log("update:", results)
+  res.json({data: results})
+}
+
 
 
 module.exports = {
   read: [asyncErrorBoundary(reservationExists), asyncErrorBoundary(read)],
   list: [asyncErrorBoundary(list)],
   create: [validateTime, validateDateTime, validateInputs, asyncErrorBoundary(create)],
-  updateStatus: [asyncErrorBoundary(reservationExists), validateStatus, asyncErrorBoundary(updateStatus)]
+  updateStatus: [asyncErrorBoundary(reservationExists), validateStatus, asyncErrorBoundary(updateStatus)],
+  update: [asyncErrorBoundary(reservationExists), validateTime, validateDateTime, validateInputs, asyncErrorBoundary(update)]
 }
