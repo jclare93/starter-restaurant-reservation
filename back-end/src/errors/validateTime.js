@@ -1,6 +1,13 @@
 function validateTime(req, res, next){
     let {data} = req.body
     let reservation = data
+
+    if(!reservation.reservation_time){
+        return next({
+            status: 400,
+            message: "please enter a valid reservation_time"
+        })
+    }
     
     let reservationTime = reservation.reservation_time.split('')
     let reservationHours = reservationTime.slice(0,2)
