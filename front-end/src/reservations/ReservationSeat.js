@@ -67,7 +67,7 @@ useEffect(() => {
         <ErrorAlert error={newSeatError} />
         <ErrorAlert error={tablesError}/>
     {tables && <form onSubmit= {handleSubmit}>
-        <div class="form-group">
+        <div className="form-group">
             <label htmlFor="table_id">Table Number:</label>
             <select className="form-control" name="table_id" id="table_id" onChange = {handleChange} value = {selectedTable} required>
              {tables.map((table, index) => {
