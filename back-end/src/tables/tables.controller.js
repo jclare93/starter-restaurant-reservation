@@ -68,7 +68,7 @@ async function reservationIdExists(req, res, next) {
   }
 
 async function finishReservation(req, res, next){
-    const {reservation_id} = res.locals.table
+    let {reservation_id} = res.locals.table
     if(!reservation_id) reservation_id = req.params.reservation_id ;
     if(!reservation_id) return next({status: 400, message: `this table is not occupied`})
     const updatedReservations = await service.finishReservation(reservation_id)
