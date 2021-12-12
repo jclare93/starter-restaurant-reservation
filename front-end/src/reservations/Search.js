@@ -5,7 +5,7 @@ import ErrorAlert from "../layout/ErrorAlert"
 
 function Search() {
     const [searchText, setSearchText] = useState("")
-    const [reservations, setReservations] = useState(null)
+    const [reservations, setReservations] = useState([])
     const [searchError, setSearchError] = useState('')
     const [searchResults, setSearchResults] = useState(null)
 
@@ -13,18 +13,21 @@ function Search() {
         setSearchResults(reservations)
       }, [reservations]);
 
-    const handleSeachChange = (event) => {
+    const handleSearchChange = (event) => {
         event.preventDefault()
         setSearchText(event.target.value)
+        console.log(searchText)
     }
 
     const handleSubmit = async (event) => {
+
         event.preventDefault()
         const abortController = new AbortController();
         setSearchError(null)
         try {
             const results = await listReservations({mobile_number: searchText}, abortController.signal);
             setReservations(results)
+            console.log(reservations)
           } catch (err) {
             setSearchError(err)
             console.error(err)
@@ -34,23 +37,24 @@ function Search() {
           return () => abortController.abort();
     }
 
+    const reservationList = reservations.map((reservation, index) => {
+        return <ReservationFormat reservation = {reservation} key = {index}/> 
+    }) 
+
     return (
     <div className = "container-fluid">
         <ErrorAlert error ={searchError} />
         <form onSubmit= {handleSubmit}>
-            
             <label htmlFor="mobile_number"> Search By Mobile Number: </label>
             <div className="form-group">
-                <input name="mobile_number" onChange ={handleSeachChange} id="mobile_number" value = {searchText}
+                <input name="mobile_number" onChange ={handleSearchChange} id="mobile_number" value = {searchText}
                 placeholder="Enter a customer's phone number" />
             </div>
             <button type="submit" className="btn btn-primary">Find</button>
         </form>
         <br />
-        {searchResults && reservations.length > 0 &&  
-        <ReservationFormat reservations = {reservations}/>}
-        {searchResults && reservations.length < 1 && 
-        <h6>No reservations found for {searchText}</h6>
+        {reservations.length>0?  reservationList :
+        <h6>No reservations found.</h6>
         }
     </div>
     )

@@ -2,7 +2,7 @@ function validateInputs(req, res, next){
     
     const {data} = req.body
     const reservation = data
-
+    console.log(reservation)
     if(!reservation){
         return next({
             status: 400,
@@ -48,7 +48,7 @@ function validateInputs(req, res, next){
     if(reservation.status==="seated"||reservation.status === "finished"){
         return next({
             status:400,
-            message: "status seated and finished are not valid statuses for POST"
+            message: "status seated and finished are not valid statuses for POST or PUT"
         })
     }
 

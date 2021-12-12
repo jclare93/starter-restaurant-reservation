@@ -10,7 +10,7 @@ function EditReservation(){
     const {reservation_id}= useParams()
     const [reservationError, setReservationError] = useState(null)
     const [reservation, setReservation] = useState({first_name: '', last_name: '', mobile_number: '', 
-    reservation_date: '', reservation_time: '', people: ''})
+    reservation_date: '', reservation_time: '', people: '',})
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -20,7 +20,8 @@ function EditReservation(){
           try {
             const data = await readReservation(reservation_id, abortController.signal);
             const formattedData = formatReservationDate(data)
-            setReservation(formattedData);
+            const newReservation = {...formattedData, reservation_id: reservation_id}
+            setReservation(newReservation);
           } catch (error) {
             setReservationError(error);
           }
@@ -33,6 +34,7 @@ function EditReservation(){
           event.preventDefault()
           const abortController = new AbortController();
             setReservationError(null)
+
             try {
                 await updateReservation(reservation, abortController.signal);
             } catch (err) {
@@ -40,7 +42,9 @@ function EditReservation(){
                 console.error(err)
                 return;
             }
-            history.goBack()
+            history.push(`/dashboard?date=${reservation.reservation_date}`)
+
+            return () => abortController.abort();
         }
 
     return (

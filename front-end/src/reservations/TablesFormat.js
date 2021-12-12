@@ -32,6 +32,7 @@ function TablesFormat(){
         const table = event.target.value
         console.log("table:", table)
         setDeleteSeatError(null)
+        if (window.confirm("Is this table ready to seat new guests? This cannot be undone.")) {
         try{
             await finishTable(table, abortController.signal)
         } catch(err){
@@ -39,6 +40,7 @@ function TablesFormat(){
             return;
         }
         return history.go(0)
+    }
     }
 
     return (

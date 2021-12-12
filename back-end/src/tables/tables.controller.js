@@ -13,7 +13,6 @@ async function update(req, res, next){
     const results = await service.update(newTable)
     console.log("data:", results)
     next()
-    //res.json({data: results})
 }
 
 async function list(req, res, next){
@@ -118,9 +117,6 @@ function checkIfSeated(req, res, next) {
   
     next();
   }
-
-//moved checkIfOccupied ahead of reservation id exists
-//move update reservation status vefore update maybe
 
 module.exports = {
     update: [ asyncErrorBoundary(tableExists), validateTablesUpdate, checkIfOccupied, asyncErrorBoundary(reservationIdExists), 

@@ -6,38 +6,22 @@ import { updateReservationStatus } from "../utils/api";
 function ReservationFormat({reservation = []}){
     const [reservationStatus, setReservationStatus] = useState('')
     const [reservationStatusError, setReservationStatusError] = useState(null)
-
-    /*
-    const seatClickHandler = (event) => {
-        event.preventDefault()
-        const abortController = new AbortController();
-        setReservationStatusError(null)
-        setReservationStatus({status: 'seated'})
-        try{
-            updateReservationStatus(reservationStatus)
-        }catch(err){
-            setReservationStatusError(err)
-        }
-        return () => abortController.abort();
-    }
-
-    <button className="btn btn-primary" onClick = {seatClickHandler} type = "button">Seat</button>*/
-
     
-
-    const handleCancelClick = (event) => {
-        event.preventDefault()
+    const handleCancelClick = async(reservation_id) => {
         const abortController = new AbortController()
         setReservationStatusError(null)
         if (window.confirm("Do you want to cancel this reservation? This cannot be undone.")) {
-            setReservationStatus({status: "cancelled"})
+            const reservation = {status: "cancelled"}
+            setReservationStatus(reservation)
             try{
-                updateReservationStatus(reservationStatus)
+                await updateReservationStatus(reservation, reservation_id)
+                console.log("reservationStatus:", reservationStatus)
             } catch(err){
                 setReservationStatusError(err)
                 console.error(err)
                 return;
             }
+            window.location.reload();
           }
         return () => abortController.abort();
     }
@@ -72,7 +56,7 @@ function ReservationFormat({reservation = []}){
                 <a className="btn btn-primary" href={`/reservations/${reservation.reservation_id}/edit`} role="button">Edit</a>
                 <a className="btn btn-primary" href={`/reservations/${reservation.reservation_id}/seat`} role="button">Seat</a>
                 <button className= "btn btn-warning" data-reservation-id-cancel={reservation.reservation_id} type ="button"
-                 onClick = {handleCancelClick}>Cancel</button>
+                 onClick = {()=> handleCancelClick(reservation.reservation_id)}>Cancel</button>
             </>
             }
         </div>

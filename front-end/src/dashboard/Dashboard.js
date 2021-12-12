@@ -13,7 +13,7 @@ import TablesFormat from "../reservations/TablesFormat";
  *  the date for which the user wants to view reservations.
  * @returns {JSX.Element}
  */
-function Dashboard({ date }) {
+function Dashboard({date}) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
   const dateQuery = useQuery().get("date")

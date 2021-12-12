@@ -13,8 +13,10 @@ async function read(req, res){
 
 async function list(req, res) {
   const date = req.query.date
+  console.log(date)
   if(date){
     const results = await service.listActiveByDate(date)
+    console.log("data:", results)
     res.json({data: results})
   } 
   const mobile_number = req.query.mobile_number

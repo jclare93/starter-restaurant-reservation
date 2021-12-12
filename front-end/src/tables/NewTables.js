@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ErrorAlert from "../layout/ErrorAlert";
 import {useHistory} from "react-router-dom"
-import {createReservation} from "../utils/api"
+import {createTable} from "../utils/api"
 
 function NewTables(){
     const [newTable, setNewTable] = useState({table_name: '', capacity: ''})
@@ -35,8 +35,9 @@ function NewTables(){
         event.preventDefault()
         const abortController = new AbortController();
         setNewTableError(null)
+        const table = {...newTable, capacity: Number(newTable.capacity)}
         try {
-            await createReservation(newTable, abortController.signal);
+            await createTable(table, abortController.signal);
           } catch (err) {
             setNewTableError(err)
             console.error(err)

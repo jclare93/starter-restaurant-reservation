@@ -1,6 +1,3 @@
-const reservationsService = require("../reservations/reservations.service")
-const tablesService = require("../tables/tables.service")
-
 function validateTablesUpdate(req, res, next){
     const {data} = req.body
     const table = data

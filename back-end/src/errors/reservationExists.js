@@ -2,9 +2,12 @@ const service = require("../reservations/reservations.service")
 
 async function reservationExists(req, res, next) {
   
-    let {reservation_id} = req.params
+    const {reservation_id} = req.params
+
+    console.log("reservation_id before", reservation_id)
+    
   
-      const reservation = await service.read(reservation_id)
+    const reservation = await service.read(reservation_id)
       
       if (reservation){
         res.locals.reservation = reservation

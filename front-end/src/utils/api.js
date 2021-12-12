@@ -178,18 +178,17 @@ export async function listReservations(params, signal) {
 }
 
 /**
- * Saves table to the database,,
- * @param table_id
- *  the table id to save
+ * @param reservationStatus
+ * the reservation status for the table
  * @param reservation_id
  * the reservation id for the table
  * @param signal
  *  optional AbortController.signal
- * @returns {Promise<table>}
+ * @returns {Promise<reservation>}
  *  a promise that resolves the saved table, which will now have an `id` property.
  */
- export async function updateReservationStatus(reservationStatus, signal) {
- const url = `${API_BASE_URL}/reservations/:reservation_id/status`;
+ export async function updateReservationStatus(reservationStatus, reservation_id, signal) {
+ const url = `${API_BASE_URL}/reservations/${reservation_id}/status`;
  const options = {
    method: "PUT",
    headers,
@@ -209,7 +208,7 @@ export async function listReservations(params, signal) {
  *  a promise that resolves the saved reservation, which will now have an `id` property.
  */
  export async function updateReservation(reservation, signal) {
-  const url = `${API_BASE_URL}/reservations/:reservation_id`;
+  const url = `${API_BASE_URL}/reservations/${reservation.reservation_id}`;
   const options = {
     method: "PUT",
     headers,

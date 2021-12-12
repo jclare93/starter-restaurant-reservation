@@ -6,7 +6,6 @@ import { listTables, updateTable } from "../utils/api"
 
 function ReservationSeat(){
 
-//const [newSeat, setNewSeat] = useState({})
 const [newSeatError, setNewSeatError] = useState(null)
 const [selectedTable, setSelectedTable] = useState('')
 const history = useHistory()
@@ -17,9 +16,7 @@ const {reservation_id} = useParams()
 console.log("reservationId", reservation_id)
 
 
-//get query of reservationId
-//make api for update
-//handlesubmit
+
 useEffect(() => {
     const abortController = new AbortController();
 
