@@ -52,11 +52,17 @@ function TablesFormat(){
             {tables && tables.map((table, index) => {
                 return (
                     <div key = {index} className= "row">
+                        <div className = "col-4">
                             <h5>Table Name: {table.table_name}</h5>
-                            <h6 data-table-id-status= {table.table_id}> {table.reservation_id? "Occupied": "Free"} </h6>
+                        </div>
+                        <div className = "col-4">
+                            <h6 data-table-id-status= {table.table_id}> Status: {table.reservation_id? "Occupied": "Free"} </h6>
+                            </div>
+                        <div className = "col-4">
                             {table.reservation_id && 
                             <button type="button" className="btn btn-primary" data-table-id-finish={table.table_id} 
                             value={table.table_id} onClick={finishClickHandler}>Finish</button>}
+                        </div>
                     </div>
                 )
             })}
