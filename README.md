@@ -147,7 +147,7 @@ The screenshots are saved in `front-end/.screenshots` and you can review them af
 You can use the screenshots to debug your code by rendering additional information on the screen.
 
 
-###API
+### API
 
 
 Our API follows RESTFUL principles. We have two main endpoints: /reservations and /tables. 
@@ -155,7 +155,7 @@ The /reservations endpoint allows you to get a list of all reservations by the d
 The /tables endpoint allows us to get a list of all tables, whether they are free or occupied, and add more tables as well. The tables/:table_id/seat allows us to view and update whether a seat is currently occupied or not. Finally tables/:table_id, allows us to get information on a table, such as its status and capacity.
 If you do have any errors with the API, you will get effective error messages, describing your issues and how to fix it. 
 
-###Technology Used
+### Technology Used
 This is a full stack application:
 For the Backend: Node, Express, Postgres, and Knex.
 For the Frontend: ReactJS, HTML, CSS, and Bootstrap.
