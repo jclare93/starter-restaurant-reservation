@@ -17,7 +17,6 @@ function Dashboard({date}) {
   const [reservations, setReservations] = useState([]);
   const [reservationsError, setReservationsError] = useState(null);
   const dateQuery = useQuery().get("date")
-  console.log("query:", dateQuery)
   if (dateQuery) date = dateQuery;
   if (!date) date = today()
 
@@ -41,12 +40,12 @@ function Dashboard({date}) {
   const reservationList = reservations.map((reservation, index) => {
       return <ReservationFormat reservation = {reservation} date = {date} key = {index}/> 
   }) 
-//{JSON.stringify(reservations)}
+
   return (
     <main>
-      <h1>Dashboard</h1>
+      <h1>Restaurant Rez Dashboard</h1>
       <div className="d-md-flex mb-3">
-        <h4 className="mb-0">Reservations for date: {date}</h4>
+        <h4 className="mb-0">Reservations for: {date}</h4>
       </div>
       <ErrorAlert error={reservationsError} />
       
