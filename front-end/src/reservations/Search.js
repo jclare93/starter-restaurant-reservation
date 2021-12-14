@@ -8,16 +8,16 @@ function Search() {
     const [reservations, setReservations] = useState([])
     const [searchError, setSearchError] = useState('')
 
+    //rerender once reservations changes
     useEffect(() => {
-        setSearchResults(reservations)
       }, [reservations]);
 
     const handleSearchChange = (event) => {
         event.preventDefault()
         setSearchText(event.target.value)
-        console.log(searchText)
     }
 
+    //search  the reservations for the phone number
     const handleSubmit = async (event) => {
 
         event.preventDefault()
@@ -36,6 +36,7 @@ function Search() {
           return () => abortController.abort();
     }
 
+    //map reservations into a nice formatted list
     const reservationList = reservations.map((reservation, index) => {
         return <ReservationFormat reservation = {reservation} key = {index}/> 
     }) 
@@ -47,7 +48,7 @@ function Search() {
             <label htmlFor="mobile_number"> Search By Mobile Number: </label>
             <div className="form-group">
                 <input name="mobile_number" onChange ={handleSearchChange} id="mobile_number" value = {searchText}
-                placeholder="Enter a customer's phone number" />
+                placeholder="Enter a customer's phone" />
             </div>
             <button type="submit" className="btn btn-primary">Find</button>
         </form>
