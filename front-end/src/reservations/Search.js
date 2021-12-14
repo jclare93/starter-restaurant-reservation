@@ -7,7 +7,6 @@ function Search() {
     const [searchText, setSearchText] = useState("")
     const [reservations, setReservations] = useState([])
     const [searchError, setSearchError] = useState('')
-    const [searchResults, setSearchResults] = useState(null)
 
     useEffect(() => {
         setSearchResults(reservations)

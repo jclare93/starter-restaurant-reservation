@@ -51,7 +51,7 @@ function EditReservation(){
     return (
         <>
             <ErrorAlert error ={reservationError} />
-            <div className= "container-fluid" >
+            <div className= "container-fluid center" >
                 <div className= "row">
                     <h3 className = "center">Edit Reservation</h3>
                 </div>
