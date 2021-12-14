@@ -4,15 +4,15 @@ import { updateReservationStatus } from "../utils/api";
 
 
 function ReservationFormat({reservation = []}){
-    
     const [reservationStatusError, setReservationStatusError] = useState(null)
     
     const handleCancelClick = async(reservation_id) => {
         const abortController = new AbortController()
         setReservationStatusError(null)
         if (window.confirm("Do you want to cancel this reservation? This cannot be undone.")) {
+            const updatedReservation = {status: "cancelled"}
             try{
-                await updateReservationStatus(reservation, reservation_id)
+                await updateReservationStatus(updatedReservation, reservation_id)
                 
             } catch(err){
                 setReservationStatusError(err)

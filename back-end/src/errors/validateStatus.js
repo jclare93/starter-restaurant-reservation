@@ -1,6 +1,7 @@
 function  validateStatus (req, res, next){
     const {status} = req.body.data
     
+    
     if(res.locals.reservation.status === "finished"){
         return next({
             status:400,

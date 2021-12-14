@@ -13,10 +13,10 @@ async function read(req, res){
 
 async function list(req, res) {
   const date = req.query.date
-  console.log(date)
+  
   if(date){
     const results = await service.listActiveByDate(date)
-    console.log("data:", results)
+    
     res.json({data: results})
   } 
   const mobile_number = req.query.mobile_number
@@ -28,27 +28,26 @@ async function list(req, res) {
 
 async function create(req, res, next){
   const {data} = req.body
-  console.log("req.body", data)
-    const results = await service.create(data)
-    console.log("data:", { results })
-    res.status(201).json({data: results})
+  
+  const results = await service.create(data)
+    
+  res.status(201).json({data: results})
 
 }
 
 async function updateStatus(req, res, next){
   const {status} = req.body.data
-  console.log("status:", status)
-  console.log("reservation_id:", res.locals.reservation.reservation_id)
+  
   const results = await service.updateReservationStatus(status, res.locals.reservation.reservation_id)
-  console.log("data:", results)
+  
   res.json({data: results})
 }
 
 async function update(req, res, next){
   const {data} = req.body
-  console.log("update data:", data)
+  
   const results = await service.update(data)
-  console.log("update:", results)
+  
   res.json({data: results})
 }
 

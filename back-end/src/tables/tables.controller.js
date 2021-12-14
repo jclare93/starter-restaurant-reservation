@@ -23,9 +23,9 @@ async function list(req, res, next){
 async function tableExists (req, res, next){
     const table_id = req.params.table_id
     const table = await service.read(table_id)
-    console.log("table:", table)
+    
     if(table){
-        console.log("table:", table)
+        
         res.locals.table = table
         return next()
     }
@@ -36,9 +36,9 @@ async function tableExists (req, res, next){
 
 async function create(req, res, next){
     const {data} = req.body
-    console.log("req.body", data)
+    
     const results = await service.create(data)
-    console.log("data:", { results })
+    
     res.status(201).json({data: results})
 }
 
@@ -48,7 +48,7 @@ function read(req, res, next) {
 
 async function reservationIdExists(req, res, next) {
     let reservation_id = null
-    console.log("req.body.data:", req.body.data)
+    
     if (req.body.data) {
       reservation_id = req.body.data.reservation_id
     } 
@@ -71,7 +71,7 @@ async function finishReservation(req, res, next){
     if(!reservation_id) reservation_id = req.params.reservation_id ;
     if(!reservation_id) return next({status: 400, message: `this table is not occupied`})
     const updatedReservations = await service.finishReservation(reservation_id)
-    console.log("updatedResevations:", updatedReservations)
+    
     next()
 }
 
@@ -90,7 +90,7 @@ function checkCapacity(req, res, next){
     }
     return next()
 }
-//it might be res.locals.reservation.reservation_id
+
 function checkIfOccupied(req, res, next){
     if (res.locals.table.reservation_id){
         return next({status: 400, message:"This table is occupied"})
@@ -101,7 +101,7 @@ function checkIfOccupied(req, res, next){
 async function updateReservationStatus(req, res, next){
     const {reservation_id} = res.locals.reservation
     const results = await service.seatReservation(reservation_id)
-    console.log("data:", results)
+    
     res.json({data: results})
 }
 
