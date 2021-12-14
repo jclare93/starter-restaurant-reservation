@@ -43,23 +43,29 @@ function Dashboard({date}) {
 
   return (
     <main>
-      <h1 className="justify-content-center">Restaurant Rez Dashboard</h1>
+      <div className = "container-fluid">
+      <div className = "row">
+        <h1 className="justify-content-center">Restaurant Rez Dashboard</h1>
+      </div>
       <div className="d-md-flex mb-3">
         <h4 className="mb-0">Reservations for: {date}</h4>
       </div>
       <ErrorAlert error={reservationsError} />
       
-      <Link to={`/dashboard?date=${previous(date)}`}> 
-        <button className="btn btn-secondary" type="button">Previous</button>
-      </Link>
-      <Link to={`/dashboard?date=${today()}`}> 
-        <button className="btn btn-primary" type="button">Today</button>
-      </Link>
-      <Link to={`/dashboard?date=${next(date)}`}> 
-        <button className="btn btn-secondary" type="button">Next</button>
-      </Link>
-      {reservationList}
+      <div className = "row justify-content-center">
+        <Link to={`/dashboard?date=${previous(date)}`}> 
+          <button className="btn btn-secondary" type="button">Previous</button>
+        </Link>
+        <Link to={`/dashboard?date=${today()}`}> 
+          <button className="btn btn-primary" type="button">Today</button>
+        </Link>
+        <Link to={`/dashboard?date=${next(date)}`}> 
+          <button className="btn btn-secondary" type="button">Next</button>
+        </Link>
+      </div>
+      {reservations.length>0? reservationList: <h5> No reservations found. </h5>}
       <TablesFormat />
+      </div>
     </main>
   );
 }
