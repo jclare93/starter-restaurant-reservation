@@ -11,8 +11,6 @@ function ReservationFormat({reservation = []}){
         const abortController = new AbortController()
         setReservationStatusError(null)
         if (window.confirm("Do you want to cancel this reservation? This cannot be undone.")) {
-            
-            setReservationStatus(reservation)
             try{
                 await updateReservationStatus(reservation, reservation_id)
                 
