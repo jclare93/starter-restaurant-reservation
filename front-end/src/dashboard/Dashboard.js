@@ -63,7 +63,7 @@ function Dashboard({date}) {
           <button className="btn btn-secondary" type="button">Next</button>
         </Link>
       </div>
-      {reservations.length>0? reservationList: <h5> No reservations found. </h5>}
+      {reservations.length>0? reservationList: <h5 className="text-danger"> No reservations found </h5>}
       <TablesFormat />
       </div>
     </main>

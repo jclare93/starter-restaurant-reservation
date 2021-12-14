@@ -45,7 +45,7 @@ function Search() {
     <div className = "container-fluid">
         <ErrorAlert error ={searchError} />
         <div className = "row justify-content-center">
-            <h4> Search for a customer </h4>
+            <h3 className="text-primary"> Find a customer </h3>
         </div>
         <form onSubmit= {handleSubmit}>
             <label htmlFor="mobile_number"> Search By Mobile Number: </label>
