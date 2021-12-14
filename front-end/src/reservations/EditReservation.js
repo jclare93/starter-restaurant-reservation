@@ -4,7 +4,7 @@ import ErrorAlert from "../layout/ErrorAlert"
 import ReservationForm from "./ReservationForm"
 import { updateReservation, readReservation } from "../utils/api"
 import formatReservationDate from "../utils/format-reservation-date"
-import "./Layout.css";
+import "../layout/Layout.css";
  
 function EditReservation(){
     const history = useHistory()
