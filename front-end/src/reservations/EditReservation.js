@@ -4,7 +4,6 @@ import ErrorAlert from "../layout/ErrorAlert"
 import ReservationForm from "./ReservationForm"
 import { updateReservation, readReservation } from "../utils/api"
 import formatReservationDate from "../utils/format-reservation-date"
-import "../layout/Layout.css";
  
 function EditReservation(){
     const history = useHistory()
@@ -51,9 +50,9 @@ function EditReservation(){
     return (
         <>
             <ErrorAlert error ={reservationError} />
-            <div className= "container-fluid center" >
-                <div className= "row">
-                    <h3 className = "center">Edit Reservation</h3>
+            <div className= "container-fluid" >
+                <div className= "row justify-content-center">
+                    <h3>Edit Reservation</h3>
                 </div>
                 {reservation && 
                 <div className = "row">

@@ -6,7 +6,6 @@ import {Link} from "react-router-dom"
 import useQuery from "../utils/useQuery";
 import ReservationFormat from "../reservations/ReservationsFormat";
 import TablesFormat from "../reservations/TablesFormat";
-import "../layout/Layout.css"
 
 /**
  * Defines the dashboard page.
@@ -44,7 +43,7 @@ function Dashboard({date}) {
 
   return (
     <main>
-      <h1 className="center">Restaurant Rez Dashboard</h1>
+      <h1 className="justify-content-center">Restaurant Rez Dashboard</h1>
       <div className="d-md-flex mb-3">
         <h4 className="mb-0">Reservations for: {date}</h4>
       </div>
