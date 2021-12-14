@@ -1,9 +1,12 @@
 # Capstone: Restaurant Reservation System
 
-A link to the live application can be found at https://restaurant-rez-client.herokuapp.com/dashboard . So please give it a try. 
+A link to the live application can be found at https://restaurant-rez-client.herokuapp.com/dashboard  
+
+So please give it a try. 
 
 **Summary**
 This is a restaurant reservation full-stack application. The purpose of the app is to be used by both customers, as well as business management. On the restaurant side, it allows management to view reservations, add/edit/remove tables, review past customers, place customers in their seat, and edit customer information.
+
 On the customer side of things, it allows them to make reservations, edit their reservation, view their reservations, and even allows them to choose their seat. 
 Of course this application also provides effective validation, accounting for things such as closing times and days off, whether there is enough people to fit at certain tables, etc. 
 
@@ -157,6 +160,8 @@ If you do have any errors with the API, you will get effective error messages, d
 
 ### Technology Used
 This is a full stack application:
+
 For the Backend: Node, Express, Postgres, and Knex.
+
 For the Frontend: ReactJS, HTML, CSS, and Bootstrap.
 
