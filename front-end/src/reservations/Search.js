@@ -44,6 +44,9 @@ function Search() {
     return (
     <div className = "container-fluid">
         <ErrorAlert error ={searchError} />
+        <div className = "row justify-content-center">
+            <h4> Search for a customer </h4>
+        </div>
         <form onSubmit= {handleSubmit}>
             <label htmlFor="mobile_number"> Search By Mobile Number: </label>
             <div className="form-group">

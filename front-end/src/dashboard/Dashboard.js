@@ -44,10 +44,10 @@ function Dashboard({date}) {
   return (
     <main>
       <div className = "container-fluid">
-      <div className = "row">
-        <h1 className="justify-content-center">Restaurant Rez Dashboard</h1>
+      <div className = "row justify-content-center">
+        <h1>Restaurant Rez Dashboard</h1>
       </div>
-      <div className="d-md-flex mb-3">
+      <div className="d-md-flex mb-3 justify-content-center">
         <h4 className="mb-0">Reservations for: {date}</h4>
       </div>
       <ErrorAlert error={reservationsError} />
