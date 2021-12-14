@@ -29,7 +29,7 @@ function ReservationFormat({reservation = []}){
         <ErrorAlert error = {reservationStatusError} />
         <div className= "container-fluid">
             <div className= "row">
-                <h3>Reservation Name: </h3>
+                <h3 className = "text-primary">Reservation Name: </h3>
                 <h3> {reservation.first_name} {reservation.last_name}</h3>
             </div>
             <div className= "row">

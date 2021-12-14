@@ -48,7 +48,7 @@ function TablesFormat(){
     <ErrorAlert error={tablesError} />
     <ErrorAlert error={deleteSeatError} />
         <div className="container-fluid">
-            <h3>Seats</h3>
+            <h3 className = "text-primary">Seats</h3>
             {tables && tables.map((table, index) => {
                 return (
                     <div key = {index} className= "row">

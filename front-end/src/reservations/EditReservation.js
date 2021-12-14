@@ -52,7 +52,7 @@ function EditReservation(){
             <ErrorAlert error ={reservationError} />
             <div className= "container-fluid" >
                 <div className= "row justify-content-center">
-                    <h3>Edit Reservation</h3>
+                    <h3 className = "text-primary">Edit Reservation</h3>
                 </div>
                 {reservation && 
                 <div className = "row">

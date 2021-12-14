@@ -45,7 +45,7 @@ function Dashboard({date}) {
     <main>
       <div className = "container-fluid">
       <div className = "row justify-content-center">
-        <h1>Restaurant Rez Dashboard</h1>
+        <h1 className = "text-primary">Restaurant Rez Dashboard</h1>
       </div>
       <div className="d-md-flex mb-3 justify-content-center">
         <h4 className="mb-0">Reservations for: {date}</h4>
