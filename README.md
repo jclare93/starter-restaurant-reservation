@@ -155,7 +155,9 @@ You can use the screenshots to debug your code by rendering additional informati
 
 Our API follows RESTFUL principles. We have two main endpoints: /reservations and /tables. 
 The /reservations endpoint allows you to get a list of all reservations by the date, create new reservations. The /reservations/:reservation_id endpoint allows us to get the information on any reservation(given a real id) and update that reservation as well. Finally the reservations/:reservation_id/status, allows you to change statuses from booked, to seated, to finished, which also will, in turn, change the status of tables.
+
 The /tables endpoint allows us to get a list of all tables, whether they are free or occupied, and add more tables as well. The tables/:table_id/seat allows us to view and update whether a seat is currently occupied or not. Finally tables/:table_id, allows us to get information on a table, such as its status and capacity.
+
 If you do have any errors with the API, you will get effective error messages, describing your issues and how to fix it. 
 
 ### Technology Used
