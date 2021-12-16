@@ -37,8 +37,8 @@ function Search() {
     }
 
     //map reservations into a nice formatted list
-    const reservationList = reservations.map((reservation, index) => {
-        return <ReservationFormat reservation = {reservation} key = {index}/> 
+    const reservationList = reservations.map((reservation) => {
+        return <ReservationFormat reservation = {reservation} key = {reservation.reservation_id}/> 
     }) 
 
     return (
