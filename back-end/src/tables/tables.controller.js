@@ -20,8 +20,8 @@ async function update(req, res, next){
 
 async function list(req, res, next){
     try {
-    const results = await service.list()
-    res.json({data: results})
+        const results = await service.list()
+        res.json({data: results})
     } catch (err){
         console.error(err)
     }
@@ -96,8 +96,8 @@ async function finishReservation(req, res, next){
 
 async function finishTable(req, res, next){
     try {
-    const updatedTables = await service.finishTable(res.locals.table.table_id)
-    res.status(200).json({data: updatedTables})
+        const updatedTables = await service.finishTable(res.locals.table.table_id)
+        res.status(200).json({data: updatedTables})
     } catch (err){
         console.error(err)
     }
