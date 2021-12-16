@@ -155,7 +155,9 @@ You can use the screenshots to debug your code by rendering additional informati
 
 Our API follows RESTFUL principles. We have two main endpoints: /reservations and /tables. 
 The /reservations endpoint allows you to get a list of all reservations by the date, create new reservations. The /reservations/:reservation_id endpoint allows us to get the information on any reservation(given a real id) and update that reservation as well. Finally the reservations/:reservation_id/status, allows you to change statuses from booked, to seated, to finished, which also will, in turn, change the status of tables.
+
 The /tables endpoint allows us to get a list of all tables, whether they are free or occupied, and add more tables as well. The tables/:table_id/seat allows us to view and update whether a seat is currently occupied or not. Finally tables/:table_id, allows us to get information on a table, such as its status and capacity.
+
 If you do have any errors with the API, you will get effective error messages, describing your issues and how to fix it. 
 
 ### Technology Used
@@ -164,4 +166,20 @@ This is a full stack application:
 For the Backend: Node, Express, Postgres, and Knex.
 
 For the Frontend: ReactJS, HTML, CSS, and Bootstrap.
+
+
+### Screenshots of our app in action
+![Screen Shot 2021-12-16 at 8 48 28 AM](https://user-images.githubusercontent.com/85895069/146414366-13e845ad-ef7e-4a5f-8192-f102a5033256.png)
+
+![Screen Shot 2021-12-16 at 8 46 36 AM](https://user-images.githubusercontent.com/85895069/146414431-4b78d209-e7a3-41f4-8ee0-d707f2d67fcd.png)
+
+
+![Screen Shot 2021-12-16 at 8 46 10 AM](https://user-images.githubusercontent.com/85895069/146414466-66ddfd81-bedd-47ff-b334-8259d61c0dd2.png)
+
+
+![Screen Shot 2021-12-16 at 8 44 04 AM](https://user-images.githubusercontent.com/85895069/146414502-cbc541c4-42f3-4c1d-ade4-c21ebf6d9e83.png)
+
+
+
+
 
