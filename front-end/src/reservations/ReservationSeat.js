@@ -67,8 +67,8 @@ useEffect(() => {
         <div className="form-group">
             <label htmlFor="table_id">Table Number:</label>
             <select className="form-control" name="table_id" id="table_id" onChange = {handleChange} value = {selectedTable} required>
-             {tables.map((table, index) => {
-                return <option name={table.table_id} id={table.table_id} key = {index} value={table.table_id}>
+             {tables.map((table) => {
+                return <option name={table.table_id} id={table.table_id} key = {table.table_id} value={table.table_id}>
                     {table.table_name} - {table.capacity}</option>
                 })}
             </select>
