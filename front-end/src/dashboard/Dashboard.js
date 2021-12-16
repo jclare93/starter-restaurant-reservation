@@ -37,8 +37,8 @@ function Dashboard({date}) {
     return () => abortController.abort();
   }, [date]);
 
-  const reservationList = reservations.map((reservation, index) => {
-      return <ReservationFormat reservation = {reservation} date = {date} key = {index}/> 
+  const reservationList = reservations.map((reservation) => {
+      return <ReservationFormat reservation = {reservation} date = {date} key = {reservation.reservation_id}/> 
   }) 
 
   return (
