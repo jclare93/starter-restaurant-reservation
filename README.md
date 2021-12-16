@@ -167,3 +167,19 @@ For the Backend: Node, Express, Postgres, and Knex.
 
 For the Frontend: ReactJS, HTML, CSS, and Bootstrap.
 
+
+### Screenshots of our app in action
+![Screen Shot 2021-12-16 at 8 48 28 AM](https://user-images.githubusercontent.com/85895069/146414366-13e845ad-ef7e-4a5f-8192-f102a5033256.png)
+
+![Screen Shot 2021-12-16 at 8 46 36 AM](https://user-images.githubusercontent.com/85895069/146414431-4b78d209-e7a3-41f4-8ee0-d707f2d67fcd.png)
+
+
+![Screen Shot 2021-12-16 at 8 46 10 AM](https://user-images.githubusercontent.com/85895069/146414466-66ddfd81-bedd-47ff-b334-8259d61c0dd2.png)
+
+
+![Screen Shot 2021-12-16 at 8 44 04 AM](https://user-images.githubusercontent.com/85895069/146414502-cbc541c4-42f3-4c1d-ade4-c21ebf6d9e83.png)
+
+
+
+
+
