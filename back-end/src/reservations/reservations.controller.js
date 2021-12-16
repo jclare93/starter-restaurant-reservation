@@ -15,40 +15,54 @@ async function list(req, res) {
   const date = req.query.date
   
   if(date){
-    const results = await service.listActiveByDate(date)
-    
-    res.json({data: results})
+    try {
+      const results = await service.listActiveByDate(date)
+      res.json({data: results}) 
+    } catch (err) {
+      console.error(err)
+    }
   } 
   const mobile_number = req.query.mobile_number
   if(mobile_number){
-    const results= await service.listActiveByMobile(mobile_number)
-    res.json({data: results})
+    try{
+      const results = await service.listActiveByMobile(mobile_number)
+      res.json({data: results})
+    } catch(err){
+      console.error(err)
+    }
   }
 }
 
 async function create(req, res, next){
   const {data} = req.body
   
-  const results = await service.create(data)
-    
-  res.status(201).json({data: results})
-
+  try{
+    const results = await service.create(data)
+    res.status(201).json({data: results})
+  } catch(err){
+    console.error(err)
+  }
 }
 
 async function updateStatus(req, res, next){
   const {status} = req.body.data
   
-  const results = await service.updateReservationStatus(status, res.locals.reservation.reservation_id)
-  
-  res.json({data: results})
+  try{
+    const results = await service.updateReservationStatus(status, res.locals.reservation.reservation_id)
+    res.json({data: results})
+  } catch (err){
+    console.error(err)
+  }
 }
 
 async function update(req, res, next){
   const {data} = req.body
-  
-  const results = await service.update(data)
-  
-  res.json({data: results})
+  try{
+    const results = await service.update(data)
+    res.json({data: results})
+  } catch (err){
+    console.error(err)
+  }
 }
 
 
